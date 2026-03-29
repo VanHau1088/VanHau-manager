@@ -78,18 +78,18 @@ export function TaskModal({ isOpen, onClose, task, defaultStatus = 'todo' }: Tas
       <DialogContent className="sm:max-w-[700px] max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-2xl font-display">
-            {task ? "Edit Task" : "Create New Task"}
+            {task ? "Chỉnh sửa công việc" : "Thêm công việc mới"}
           </DialogTitle>
         </DialogHeader>
 
         <div className="grid gap-6 py-4">
           <div className="space-y-2">
-            <Label htmlFor="title" className="text-sm font-semibold">Task Title</Label>
+            <Label htmlFor="title" className="text-sm font-semibold">Tiêu đề</Label>
             <Input 
               id="title" 
               value={title} 
               onChange={(e) => setTitle(e.target.value)} 
-              placeholder="What needs to be done?"
+              placeholder="Cần làm gì?"
               className="text-lg py-6"
               autoFocus
             />
@@ -97,7 +97,7 @@ export function TaskModal({ isOpen, onClose, task, defaultStatus = 'todo' }: Tas
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
-              <Label htmlFor="deadline" className="text-sm font-semibold">Deadline</Label>
+              <Label htmlFor="deadline" className="text-sm font-semibold">Hạn chót</Label>
               <Input 
                 id="deadline" 
                 type="datetime-local" 
@@ -107,7 +107,7 @@ export function TaskModal({ isOpen, onClose, task, defaultStatus = 'todo' }: Tas
             </div>
             
             <div className="space-y-2">
-              <Label className="text-sm font-semibold">Tags</Label>
+              <Label className="text-sm font-semibold">Nhãn</Label>
               <div className="flex flex-wrap gap-2 p-2 min-h-[42px] border-2 border-border rounded-xl">
                 {tags.map(tag => (
                   <button
@@ -125,40 +125,40 @@ export function TaskModal({ isOpen, onClose, task, defaultStatus = 'todo' }: Tas
                   </button>
                 ))}
                 {tags.length === 0 && (
-                  <span className="text-sm text-muted-foreground self-center">No tags found. Create some in the Tag Manager.</span>
+                  <span className="text-sm text-muted-foreground self-center">Chưa có nhãn. Hãy tạo nhãn trong phần Quản lý Nhãn.</span>
                 )}
               </div>
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="desc" className="text-sm font-semibold">Brief Description</Label>
+            <Label htmlFor="desc" className="text-sm font-semibold">Mô tả ngắn</Label>
             <Textarea 
               id="desc" 
               value={description} 
               onChange={(e) => setDescription(e.target.value)} 
-              placeholder="A short summary of the task..."
+              placeholder="Tóm tắt ngắn về công việc này..."
               className="resize-none"
               rows={2}
             />
           </div>
 
           <div className="space-y-2">
-            <Label className="text-sm font-semibold">Detailed Notes</Label>
+            <Label className="text-sm font-semibold">Ghi chú chi tiết</Label>
             <TipTapEditor content={content} onChange={setContent} />
           </div>
         </div>
 
         <DialogFooter className="border-t border-border pt-4">
           <Button variant="outline" onClick={onClose} disabled={isPending}>
-            Cancel
+            Hủy
           </Button>
           <Button 
             onClick={handleSave} 
             disabled={!title.trim() || isPending}
             className="bg-gradient-to-r from-primary to-primary/80 hover:shadow-lg hover:shadow-primary/25 transition-all"
           >
-            {isPending ? "Saving..." : "Save Task"}
+            {isPending ? "Đang lưu..." : "Lưu lại"}
           </Button>
         </DialogFooter>
       </DialogContent>

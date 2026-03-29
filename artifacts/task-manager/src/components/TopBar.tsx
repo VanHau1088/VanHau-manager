@@ -31,7 +31,7 @@ export function TopBar({ onOpenTagManager, selectedTagIds, onToggleTagFilter }: 
             <PopoverTrigger asChild>
               <Button variant="outline" size="sm" className="h-9 font-medium gap-2">
                 <Filter className="w-4 h-4" />
-                <span className="hidden sm:inline">Filter</span>
+                <span className="hidden sm:inline">Lọc</span>
                 {selectedTagIds.length > 0 && (
                   <span className="ml-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[10px] text-primary-foreground">
                     {selectedTagIds.length}
@@ -40,10 +40,10 @@ export function TopBar({ onOpenTagManager, selectedTagIds, onToggleTagFilter }: 
               </Button>
             </PopoverTrigger>
             <PopoverContent align="end" className="w-[280px] p-4 rounded-xl shadow-xl">
-              <h4 className="font-semibold text-sm mb-3">Filter by Tags</h4>
+              <h4 className="font-semibold text-sm mb-3">Lọc theo Nhãn</h4>
               <div className="flex flex-wrap gap-2">
                 {tags.length === 0 ? (
-                  <p className="text-sm text-muted-foreground">No tags available.</p>
+                  <p className="text-sm text-muted-foreground">Chưa có nhãn nào.</p>
                 ) : (
                   tags.map(tag => (
                     <button
@@ -63,7 +63,7 @@ export function TopBar({ onOpenTagManager, selectedTagIds, onToggleTagFilter }: 
                   className="w-full mt-4 text-muted-foreground h-8"
                   onClick={() => tags.forEach(t => selectedTagIds.includes(t.id) && onToggleTagFilter(t.id))}
                 >
-                  Clear filters
+                  Xóa bộ lọc
                 </Button>
               )}
             </PopoverContent>
@@ -78,7 +78,7 @@ export function TopBar({ onOpenTagManager, selectedTagIds, onToggleTagFilter }: 
             onClick={onOpenTagManager}
           >
             <Tags className="w-4 h-4" />
-            <span className="hidden sm:inline">Tags</span>
+            <span className="hidden sm:inline">Nhãn</span>
           </Button>
 
           <Button 
@@ -87,7 +87,7 @@ export function TopBar({ onOpenTagManager, selectedTagIds, onToggleTagFilter }: 
             className="h-9 w-9 text-muted-foreground hover:text-foreground"
             onClick={() => {
               requestNotificationPermission();
-              alert("Push notifications enabled for upcoming deadlines.");
+              alert("Đã bật thông báo nhắc nhở hạn chót!");
             }}
             title="Enable Notifications"
           >
