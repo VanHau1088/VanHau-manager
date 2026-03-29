@@ -96,34 +96,20 @@ const STATUS_CONFIG: Record<
   },
 };
 
-const DEFAULT_POSTS: Post[] = [
-  {
-    id: "1",
-    title: "Kịch bản Ads tháng 4",
-    content: "Chương trình khuyến mãi tháng 4, giảm 20% cho khách hàng mới...",
-    platform: "facebook",
-    status: "cho_dang",
-    scheduledAt: new Date(Date.now() + 86400000 * 2).toISOString(),
-    createdAt: new Date().toISOString(),
-  },
-  {
-    id: "2",
-    title: "Review sản phẩm mới",
-    content: "Video review chi tiết về sản phẩm XYZ, hướng dẫn sử dụng...",
-    platform: "youtube",
-    status: "da_dang",
-    url: "https://youtube.com",
-    createdAt: new Date(Date.now() - 86400000).toISOString(),
-  },
-  {
-    id: "3",
-    title: "Story khách hàng VIP",
-    content: "Feedback từ khách hàng Nguyễn Thị A sau khi dùng dịch vụ...",
-    platform: "instagram",
-    status: "can_chinh_sua",
-    createdAt: new Date(Date.now() - 86400000 * 2).toISOString(),
-  },
-];
+const STORAGE_KEY = "taskflow_check_posts";
+
+function loadPosts(): Post[] {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch {
+    return [];
+  }
+}
+
+function savePosts(posts: Post[]) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(posts));
+}
 
 const emptyForm = {
   title: "",
@@ -135,7 +121,7 @@ const emptyForm = {
 };
 
 export function CheckPostPage() {
-  const [posts, setPosts] = useState<Post[]>(DEFAULT_POSTS);
+  const [posts, setPosts] = useState<Post[]>(loadPosts);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingPost, setEditingPost] = useState<Post | null>(null);
   const [form, setForm] = useState(emptyForm);
@@ -165,8 +151,8 @@ export function CheckPostPage() {
   const handleSave = () => {
     if (!form.title.trim()) return;
     if (editingPost) {
-      setPosts((prev) =>
-        prev.map((p) =>
+      setPosts((prev) => {
+        const next = prev.map((p) =>
           p.id === editingPost.id
             ? {
                 ...p,
@@ -177,8 +163,10 @@ export function CheckPostPage() {
                 url: form.url || undefined,
               }
             : p
-        )
-      );
+        );
+        savePosts(next);
+        return next;
+      });
     } else {
       const newPost: Post = {
         id: Date.now().toString(),
@@ -189,21 +177,31 @@ export function CheckPostPage() {
         url: form.url || undefined,
         createdAt: new Date().toISOString(),
       };
-      setPosts((prev) => [newPost, ...prev]);
+      setPosts((prev) => {
+        const next = [newPost, ...prev];
+        savePosts(next);
+        return next;
+      });
     }
     setIsModalOpen(false);
   };
 
   const handleDelete = (id: string) => {
     if (confirm("Bạn có chắc muốn xóa bài đăng này không?")) {
-      setPosts((prev) => prev.filter((p) => p.id !== id));
+      setPosts((prev) => {
+        const next = prev.filter((p) => p.id !== id);
+        savePosts(next);
+        return next;
+      });
     }
   };
 
   const handleQuickStatus = (id: string, status: PostStatus) => {
-    setPosts((prev) =>
-      prev.map((p) => (p.id === id ? { ...p, status } : p))
-    );
+    setPosts((prev) => {
+      const next = prev.map((p) => (p.id === id ? { ...p, status } : p));
+      savePosts(next);
+      return next;
+    });
   };
 
   const filtered =
