@@ -8,6 +8,7 @@ import { TodoPage } from "@/app/todo/page";
 import { CheckPostPage } from "@/app/check-post/page";
 import { WinPage } from "@/app/win/page";
 import { TestHangPage } from "@/app/test-hang/page";
+import { ChayHangPage } from "@/app/chay-hang/page";
 import NotFound from "@/pages/not-found";
 import { useEffect } from "react";
 import { requestNotificationPermission } from "@/lib/notifications";
@@ -30,6 +31,7 @@ function Router() {
         <Route path="/check-post" component={CheckPostPage} />
         <Route path="/win" component={WinPage} />
         <Route path="/test-hang" component={TestHangPage} />
+        <Route path="/chay-hang" component={ChayHangPage} />
         <Route component={NotFound} />
       </Switch>
     </AppLayout>

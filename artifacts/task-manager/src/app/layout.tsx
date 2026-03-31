@@ -5,6 +5,7 @@ import {
   FileCheck2,
   Trophy,
   FlaskConical,
+  Rocket,
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
@@ -20,6 +21,7 @@ const NAV_ITEMS = [
   { href: "/check-post", label: "Check bài đăng", icon: FileCheck2 },
   { href: "/win", label: "Sản phẩm Win", icon: Trophy },
   { href: "/test-hang", label: "Test hàng", icon: FlaskConical },
+  { href: "/chay-hang", label: "Chạy hàng", icon: Rocket },
 ];
 
 export function AppLayout({ children }: LayoutProps) {
