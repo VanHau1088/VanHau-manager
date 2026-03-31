@@ -31,10 +31,10 @@ interface KanbanBoardProps {
 
 type ColumnType = 'todo' | 'in_progress' | 'done';
 
-const COLUMNS: { id: ColumnType; title: string; color: string; dot: string }[] = [
-  { id: 'todo', title: 'Cần làm', color: 'bg-slate-100 dark:bg-slate-800/50', dot: 'bg-yellow-400' },
-  { id: 'in_progress', title: 'Đang làm', color: 'bg-indigo-50 dark:bg-indigo-900/20', dot: 'bg-blue-400' },
-  { id: 'done', title: 'Hoàn thành', color: 'bg-green-50 dark:bg-green-900/10', dot: 'bg-green-400' },
+const COLUMNS: { id: ColumnType; title: string; color: string }[] = [
+  { id: 'todo', title: 'To Do', color: 'bg-slate-100 dark:bg-slate-800/50' },
+  { id: 'in_progress', title: 'In Progress', color: 'bg-indigo-50 dark:bg-indigo-900/20' },
+  { id: 'done', title: 'Done', color: 'bg-green-50 dark:bg-green-900/10' },
 ];
 
 export function KanbanBoard({ tasks: initialTasks, onTaskClick, onAddTask }: KanbanBoardProps) {
@@ -156,7 +156,6 @@ export function KanbanBoard({ tasks: initialTasks, onTaskClick, onAddTask }: Kan
             >
               <div className="p-4 flex items-center justify-between sticky top-0 z-10">
                 <h3 className="font-display font-bold text-lg text-foreground flex items-center gap-2">
-                  <div className={`w-3 h-3 rounded-full ${col.dot}`} />
                   {col.title}
                   <span className="bg-background/80 px-2 py-0.5 rounded-full text-xs text-muted-foreground border border-border/50">
                     {colTasks.length}
@@ -194,7 +193,7 @@ export function KanbanBoard({ tasks: initialTasks, onTaskClick, onAddTask }: Kan
                   className="w-full mt-3 border-2 border-dashed border-border/60 hover:border-primary/50 hover:bg-primary/5 text-muted-foreground hover:text-primary transition-all"
                   onClick={() => onAddTask(col.id)}
                 >
-                  <Plus className="w-4 h-4 mr-2" /> Thêm công việc
+                  <Plus className="w-4 h-4 mr-2" /> Add Task
                 </Button>
               </div>
             </div>

@@ -2,10 +2,7 @@ import { Switch, Route, Router as WouterRouter } from "wouter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { AppLayout } from "@/app/layout";
-import { DashboardPage } from "@/app/page";
-import { TodoPage } from "@/app/todo/page";
-import { CheckPostPage } from "@/app/check-post/page";
+import { BoardPage } from "@/pages/BoardPage";
 import NotFound from "@/pages/not-found";
 import { useEffect } from "react";
 import { requestNotificationPermission } from "@/lib/notifications";
@@ -21,19 +18,16 @@ const queryClient = new QueryClient({
 
 function Router() {
   return (
-    <AppLayout>
-      <Switch>
-        <Route path="/" component={DashboardPage} />
-        <Route path="/todo" component={TodoPage} />
-        <Route path="/check-post" component={CheckPostPage} />
-        <Route component={NotFound} />
-      </Switch>
-    </AppLayout>
+    <Switch>
+      <Route path="/" component={BoardPage} />
+      <Route component={NotFound} />
+    </Switch>
   );
 }
 
 function App() {
   useEffect(() => {
+    // Request notification permission passively on load
     setTimeout(() => {
       requestNotificationPermission();
     }, 2000);

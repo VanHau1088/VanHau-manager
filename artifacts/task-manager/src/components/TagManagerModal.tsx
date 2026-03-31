@@ -36,25 +36,25 @@ export function TagManagerModal({ isOpen, onClose }: TagManagerModalProps) {
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-display">Quản lý Nhãn</DialogTitle>
+          <DialogTitle className="text-2xl font-display">Manage Tags</DialogTitle>
         </DialogHeader>
 
         <div className="space-y-6 py-4">
           {/* Create New Tag */}
           <div className="bg-muted/50 p-4 rounded-xl border border-border space-y-4">
-            <h4 className="text-sm font-semibold">Tạo Nhãn Mới</h4>
+            <h4 className="text-sm font-semibold">Create New Tag</h4>
             <div className="flex gap-3">
               <Input 
                 value={name} 
                 onChange={(e) => setName(e.target.value)} 
-                placeholder="Tên nhãn (VD: Khẩn cấp)" 
+                placeholder="Tag name (e.g. Urgent)" 
                 className="flex-1"
               />
               <Button 
                 onClick={handleCreate} 
                 disabled={!name.trim() || createTag.isPending}
               >
-                Thêm
+                Add Tag
               </Button>
             </div>
             <div className="flex flex-wrap gap-2">
@@ -72,9 +72,9 @@ export function TagManagerModal({ isOpen, onClose }: TagManagerModalProps) {
 
           {/* List Existing Tags */}
           <div>
-            <h4 className="text-sm font-semibold mb-3">Nhãn hiện có</h4>
+            <h4 className="text-sm font-semibold mb-3">Existing Tags</h4>
             {tags.length === 0 ? (
-              <p className="text-sm text-muted-foreground italic">Chưa tạo nhãn nào.</p>
+              <p className="text-sm text-muted-foreground italic">No tags created yet.</p>
             ) : (
               <div className="flex flex-col gap-2 max-h-[300px] overflow-y-auto pr-2">
                 {tags.map(tag => (
